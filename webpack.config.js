@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -8,6 +9,7 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  
   module: {
     rules: [ {
       test: /\.scss$/,
@@ -80,6 +82,9 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: './index.html', to: './' }
+    ])
   ])
 }
